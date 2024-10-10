@@ -9,23 +9,31 @@ import TextField from '@mui/material/TextField';
 
 function SearchBar() {
 
-  const [lista, setLista] = useState([])
+  
   const [newItem, setnewItem] = useState("")
 
-  // const [count, setCount] = useState(0)
-  function adicionaItem(item){
-    if(!newItem){
-      return;
+  function Clicou() {
+    if (!newItem) {
+      adicionaItem(newItem); 
+      setNewItem("");
     }
-    return item;
+  };
 
-  }
+
+  // const [count, setCount] = useState(0)
+  // function adicionaItem(item){
+  //   if(!newItem){
+  //     return;
+  //   }
+  //   return item;
+
+  // }
 
   return (
     <>
 
-        <TextField id="outlined-basic" type = "text" label="Outlined" variant="outlined" />
-        <Button onClick = {adicionaItem} variant="contained" endIcon={<SendIcon />}>
+        <TextField id="outlined-basic" type = "text" label="Nova Tarefa" value = {newItem} onChange = {(e) => setnewItem(e.target.value)} variant="outlined" />
+        <Button onClick = {Clicou} variant="contained" endIcon={<SendIcon />}>
             Add
         </Button>
 

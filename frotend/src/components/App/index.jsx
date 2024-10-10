@@ -7,15 +7,21 @@ import Lista from '../List';
 
 function App() {
    
+  const [lista, setLista] = useState([]);
   
+  function adicionaItemLista(item){
+    if(item){
+      setLista([...lista, item]);
+    }
+  }
 
   return (
     <>
 
     
       <Title />
-      <SearchBar />
-      <Lista {[lista]}/>
+      <SearchBar adicionaItem = {adicionaItemLista}/>
+      <Lista lista = {lista} />
 
     
     </>

@@ -9,20 +9,22 @@ import ListItemText from '@mui/material/ListItemText';
 
 function Lista() {
 
-  function adicionaItemLista(item){
+  // function adicionaItemLista(item){
 
-    setnewItem(item);
-    const newLista = [...lista, {text: item }]
-    setLista(newLista);
-    setnewItem("");
+  //   setnewItem(item);
+  //   const newLista = [...lista, {text: item }]
+  //   setLista(newLista);
+  //   setnewItem("");
 
-  }
+  // }
   return (
     <>
       <List>
-        <ListItem>
-
+        {lista.map((item, index) => (
+        <ListItem key={index}>
+          <ListItemText primary={item} />
         </ListItem>
+        ))}
       </List>
     </>
   )
