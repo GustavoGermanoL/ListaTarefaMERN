@@ -1,40 +1,65 @@
 import Item from '../models/item.model.js';
 
-//Create a new item
 export const createItem = async (req, res) => {
-    try {
+    try{
         const { text } = req.body;
-        const newItem = new Item({ text });
+        const newItem = new Item({text});
         const savedItem = await newItem.save();
         res.status(201).json(savedItem);
-    } catch (error) {
-        res.status(500).json({ message : error.message });
-    }
-};
-// Get All Items
-export const getItems = async (req, res) => {
-    try {
-        const items = await Item.find().sort({createdAt: -1 });
-        res.json(items);
-    } catch (error) {
-        res.status(500).json({ message : error.message });
-    }
-};
-//Update an item
+    }catch(error){
 
-export const updateItem = async (req, res) => {
+        res.status(500).json({message: error.message});
+    }
+};
+
+export const getItems = async (req, res) => {
+
     try {
-        const { id } = req.params;
-        const { text, isCompleted } = req.body;
-        const updateItem = await Item.findByIdAndUpdate(
+        const items = await Item.find().sort({createdAt: -1});
+        res.json(items);
+    }catch(error) {
+        res.status(500).json({message: error.message});
+    }
+};
+
+export const updateItem = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const {text, isCompleted} = req.body;
+        const updatedItem = await Item.findByIdAndUpdate(
+            id,
             {text, isCompleted},
-            { new: true}
+            {new: true}
         );
-        if(!updateItem) {
-            return res.status(404).json({message: "Item not found. "});
+        if(!updatedItem){
+
+            return res.status(404).json({message: "item not found"});
         }
-        res.json(updateItem);
-    } catch (error) {
-        res.status(500).json({ message : error.message });
+        res.json(updatedItem);
+    }catch(error){
+
+        res.status(500).json({message: error.message});
+    }
+};
+
+export const deleteItem = async(req, res) => {
+    try {
+        const {id} = req.params;
+        const deletedItem = await Item.findByIdAndDelete(id);
+        if(!deletedItem) {
+            return res.status(404).json({message: "item not found."});
+        }
+        res.json({message: "item deleted succesfully"});
+    }catch (error){
+        res.status(500).json({message: error.message});
+    }
+};
+
+export const deleteAllItems = async(req, res) => {
+    try {
+        await Item.deleteMany({});
+        res.json({message: "All items deleted successfully"});
+    }catch(error){
+        res.status(500).json({message: error.message});
     }
 };

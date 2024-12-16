@@ -131,7 +131,7 @@ function TodoList() {
       <div className="listaTarefas">
         <div style={{ textAlign: "center" }}>
           {lista.length < 1 ? (
-            <img className="icone-central" src={Icone} alt="Ícone" />
+            <img className="icone-central" alt="Ícone" />
           ) : (
             lista.map((item) => (
               <div
